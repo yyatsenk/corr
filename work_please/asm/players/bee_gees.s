@@ -1,6 +1,5 @@
 .name "ss"
-.comment "sa, Ha, Japan's geography made this invasion plan obvious to the Japanese; they were able to predict the Allied invasion plans accurately and thus adjust their defensive plan, Operation Ketsugō, accordingly. The Japanese planned an all-out defense of Kyūshū, with little left in reserve for any subsequent defense operations.[12] Four veteran divisions were withdrawn from the Kwantung Army in Manchuria in March 1945 to strengthen the forces in Japan,[13] and 45 new divisions were activated between February and May 1945. Most were immobile formations for coastal defense, but 16 were high quality mobile divisions.[14] In all, there were 2.3 million Japanese Army troops prepared to defend the home islands, backed by a civilian militia of 28 million men and women. Casualty predictions varied widely, but were extremely high. The Vice Chief of the Imperial Japanese Navy General Staff, Vice Admiral Takijirō Ōnishi, predicted up to 20 million Japanese deaths.[15]"
-	
+.comment "dddd"
 sti	r1, %:live, %1			;change live by the right value
 sti	r1, %:live2, %1			;change live by the right value
 ld	%1, r3
