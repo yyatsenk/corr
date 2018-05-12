@@ -19,6 +19,7 @@ static void print_one_byte(long long num, int fd)
 	arr = ft_strdup("");
 	arr[0] = num;
 	write(fd, &arr[0], 1);
+	free(arr);
 }
 
 static void print_two_bytes(long long num, int fd)
@@ -27,18 +28,26 @@ static void print_two_bytes(long long num, int fd)
 	int first;
 	int second;
 	char *str_binary;
+	char *mem_del;
 
 	if (num < 0)
 		num  = make_positive(num, 2); 
 	arr = (char*)malloc(sizeof(char) * 2);
 	make_binary(&str_binary, num, 2);
-	first = make_decimal(ft_strsub(str_binary, 0, 8), 7);
-	second = make_decimal(ft_strsub(str_binary, 8, 16), 7);
+	mem_del = ft_strsub(str_binary, 0, 8);
+	first = make_decimal(mem_del, 7);
+	free(mem_del);
+	mem_del = ft_strsub(str_binary, 8, 16);
+	second = make_decimal(mem_del, 7);
+	free(mem_del);
 	arr[0] = first;
 	arr[1] = second;
 	write(fd, &arr[0], 1);
 	write(fd, &arr[1], 1);
+	free(arr);
+	free(str_binary);
 }
+
 
 static void print_fore_bytes(long long num, int fd, int first, int second)
 {
@@ -46,15 +55,16 @@ static void print_fore_bytes(long long num, int fd, int first, int second)
 	int third;
 	int forth;
 	char *str_binary;
+	char *mem_del;
 
 	if (num < 0)
 		num  = make_positive(num, 4); 
 	arr = (char*)malloc(sizeof(char) * 4);
 	make_binary(&str_binary, num, 4);
-	first = make_decimal(ft_strsub(str_binary, 0, 8), 7);
-	second = make_decimal(ft_strsub(str_binary, 8, 16), 7);
-	third = make_decimal(ft_strsub(str_binary, 16, 24), 7);
-	forth = make_decimal(ft_strsub(str_binary, 24, 32), 7);
+	fore_bites_help(&first, 0, 8, str_binary);
+	fore_bites_help(&second, 8, 16, str_binary);
+	fore_bites_help(&third, 16, 24, str_binary);
+	fore_bites_help(&forth, 24, 32, str_binary);
 	arr[0] = first;
 	arr[1] = second;
 	arr[2] = third;
@@ -63,6 +73,8 @@ static void print_fore_bytes(long long num, int fd, int first, int second)
 	write(fd, &arr[1], 1);
 	write(fd, &arr[2], 1);
 	write(fd, &arr[3], 1);
+	free(arr);
+	free(str_binary);
 }
 
 static void write_args(t_args_code args, int fd)

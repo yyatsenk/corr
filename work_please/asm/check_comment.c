@@ -14,6 +14,8 @@
 
 static void help_0(char *str, int i, int j)
 {
+	char *mem_test;
+
 	if (!str[i])
 	{
 		i = 8;
@@ -25,7 +27,9 @@ static void help_0(char *str, int i, int j)
 				j++;
 				if (!ft_isalpha(str[j]) && !ft_isdigit(str[j]))
 				{
-					printf("Syntax error at token [TOKEN][%03i:%03i] INSTRUCTION \"%s\"\n", g_num_str, i + 1, ft_strsub(str, i, j - i));
+					mem_test = ft_strsub(str, i, j - i);
+					printf("Syntax error at token [TOKEN][%03i:%03i] INSTRUCTION \"%s\"\n", g_num_str, i + 1, mem_test);
+					free(mem_test);
 					exit(1);
 				}
 			}
@@ -88,5 +92,6 @@ int check_comment(char *str, char **comment, int fd)
 	if (str[i] && str[i + 1])
 		return (0);
 	*comment = ft_strsub(str, j, i - j);
+	free(str);
 	return (1);
 }

@@ -48,6 +48,7 @@ static int count_block_size(int fd, char *str, int end, t_command *command)
 	char *constuct;
 	t_op darling;
 	t_command *c_copy;
+	char *test;
 
 	i = end + 1;
 	c_copy = command;
@@ -61,7 +62,9 @@ static int count_block_size(int fd, char *str, int end, t_command *command)
 		return (0);
 	constuct = comm_cat(&str[i], i);
 	darling = check_command(constuct, str);
-	command = add_c(init_c(darling.name, 0, 0, 0), command);
+	free(constuct);
+	test = ft_strdup(darling.name);
+	command = add_c(init_c(&test, 0, 0, 0), command);
 	command = check_fill_size(command, &str[i], darling, str);
 	return (0);
 }
@@ -81,7 +84,7 @@ int check_line(int fd, char *str, t_command *command, t_i_j n_c_set)
 	if (str[i] == ':' && str[i - 1] != '%' && str[i - 1] != ' ' && str[i - 1] != '\t')
 	{
 		name = label_cat(str, &end);
-		command = add_c(init_c(name, 0, 0, 1), command);
+		command = add_c(init_c(&name, 0, 0, 1), command);
 		count_block_size(fd, str, end, command);
 	}
 	else

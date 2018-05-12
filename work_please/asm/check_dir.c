@@ -24,20 +24,19 @@ static int norm_help_0(char **lable_name, char *value, t_command *comm, t_comman
 		comm->down_un = add_new_u_l(init_u_label(*lable_name, g_num_str,\
 			ft_strstr(comm->str_orig, comm->str)- comm->str_orig), comm->down_un);
 	}
-	free(value);
 	return (1);
 }
 
-static int norm_help_1(long long *num, char *value)
+static int norm_help_1(long long *num, char **value)
 {
 	int i;
 
 	i = -1;
-	*num = ft_atoi(value);
-	while (value[++i])
-		if (!ft_isdigit(value[i]) && value[i] != '-')
+	*num = ft_atoi(*value);
+	while ((*value)[++i])
+		if (!ft_isdigit((*value)[i]) && (*value)[i] != '-')
 			return (0);
-		else if (value[i] == '-' && i != 0)
+		else if ((*value)[i] == '-' && i != 0)
 			return (0);
 	return (1);
 }
@@ -58,13 +57,21 @@ int check_dir(int *size, t_command *comm)
 	if (value && value[0] == ':')
 	{
 		if (!norm_help_0(&lable_name, value, comm, comm_copy))
+		{
+			free(value);
 			return (0);
+		}
 	}
 	else
-		if (!norm_help_1(&num, value))
+		if (!norm_help_1(&num, &value))
+		{
+			free(value);
 			return (0);
+		}
+	free(value);
 	(*size) += comm->command_op.size;
 	comm->num = num;
-	set_dir(comm, lable_name);
+	set_dir(comm, &lable_name);
+	free(comm->str);
 	return (1);
 }

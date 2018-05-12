@@ -17,6 +17,7 @@ int check_reg(char *str, int *size, t_command *command)
 	int i;
 	long long reg;
 	t_command *c_copy;
+	char *mem_test;
 
 	c_copy = command;
 	while (c_copy->next)
@@ -35,7 +36,9 @@ int check_reg(char *str, int *size, t_command *command)
 	}
 	(*size)++;
 	c_copy->num = reg;
+	free(c_copy->str);
 	c_copy->str = ft_strdup("01");
-	set_data(c_copy, NULL, 1);
+	mem_test = NULL;
+	set_data(c_copy, &mem_test, 1);
 	return (1);
 }

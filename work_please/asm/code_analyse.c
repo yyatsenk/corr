@@ -12,7 +12,7 @@
 
 #include "cor.h"
 
-static void help(t_i_j n_c_set, char *str, t_command *c_copy)
+static void help_me(t_i_j n_c_set, char *str, t_command *c_copy)
 {
 	if ((!n_c_set.comm_is_set || !n_c_set.name_is_set))
 	{
@@ -35,12 +35,13 @@ int code_analyse(int fd, char *str, t_command **comm, t_i_j n_c_set)
 	int i;
 
 	i = 0;
-	command = init_c(NULL, 0, 0, 0);
+	my_str = NULL;
+	command = init_c(&my_str, 0, 0, 0);
 	check_line(fd, str, command, n_c_set);
 	c_copy = command;
-	while (c_copy->next && i != 1 && (i++))
+	while (c_copy->next && i != 1 && (++i))
 		c_copy = c_copy->next;
-	help(n_c_set, str, c_copy);
+	help_me(n_c_set, str, c_copy);
 	while (get_next_line(fd, &str) != 0)
 	{
 		g_num_str++;

@@ -12,6 +12,19 @@
 
 #include "cor.h"
 
+int my_pow(int num, int s)
+{
+	int res;
+
+	res = num;
+	while (s != 1)
+	{
+		res *= num;
+		s--;
+	}
+	return (res);
+}
+
 static int find_size(t_command *command, char *name, int pos)
 {
 	int res;
@@ -49,6 +62,7 @@ static int find_this_shit(t_command *command, char *name)
 static void norm_help(t_command *c_copy, t_command *command)
 {
 	t_un_label *down_copy;
+	char *str_join;
 
 	while (c_copy)
 	{
@@ -57,9 +71,11 @@ static void norm_help(t_command *c_copy, t_command *command)
 		{
 				if (!find_this_shit(command, c_copy->down_un->name))
 				{	
+					str_join = ft_strjoin("%:",c_copy->down_un->name);
 					printf("No such label %s while attempting to dereference token [TOKEN][%03i:%03i] DIRECT_LABEL \"%s\"\n",\
 					c_copy->down_un->name, c_copy->down_un->pos_y,\
-					c_copy->down_un->pos_x + 1, ft_strjoin("%:",c_copy->down_un->name));
+					c_copy->down_un->pos_x + 1,str_join);
+					free(str_join);
 					exit (1);
 				}
 				c_copy->down_un = c_copy->down_un->next;

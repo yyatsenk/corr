@@ -52,7 +52,7 @@ static int if_label(int *num_copy, char **lable_name, t_command **c_copy)
 	return (1);
 }
 
-int check_ind(char *str, int *size, t_command *command, char *str_orig)
+int check_ind(char **str, int *size, t_command *command, char **str_orig)
 {
 	t_command *c_copy;
 	int num_copy;
@@ -62,19 +62,18 @@ int check_ind(char *str, int *size, t_command *command, char *str_orig)
 	lable_name = NULL;
 	while (c_copy->next)
 		c_copy = c_copy->next;
-	c_copy->str_orig = str_orig;
-	c_copy->str = str;
-	if (str && str[0] == ':')
+	if (*str && (*str)[0] == ':')
 	{
 		if (!if_label(&num_copy, &lable_name, &c_copy))
 			return (0);
 	}
 	else
-		if (!if_num(str, &num_copy))
+		if (!if_num(*str, &num_copy))
 			return (0);
 	c_copy->num = num_copy;
+	free(c_copy->str);
 	c_copy->str = ft_strdup("11");
-	set_data(c_copy, lable_name, 2);
+	set_data(c_copy, &lable_name, 2);
 	(*size) += 2;
 	return (1);
 }

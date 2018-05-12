@@ -49,7 +49,6 @@ static void put_error(char *str, char *command)
 	}
 	else
 		error_one_arg(&my_str[i], command, (int)(ft_strstr(str, &my_str[i]) - str));
-
 }
 
 t_op check_command(char *command, char *str)

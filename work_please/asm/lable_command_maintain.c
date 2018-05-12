@@ -52,12 +52,12 @@ t_command *add_c(t_command *new, t_command *begin)
 	return (copy);
 }
 
-t_command *init_c(char *name, int position, int size, int is_label)
+t_command *init_c(char **name, int position, int size, int is_label)
 {
 	t_command *com;
 
 	com = (t_command*)malloc(sizeof(t_command));	
-	com->name = name;
+	com->name = *name;
 	com->size = size;
 	com->is_label = is_label;
 	com->position = position;
@@ -70,6 +70,7 @@ t_command *init_c(char *name, int position, int size, int is_label)
 	com->c_code.one = NULL;
 	com->c_code.two = NULL;
 	com->c_code.three = NULL;
+	com->c_code.result = 0;
 	com->next = NULL;
 	com->prev = NULL;
 	com->down_un = NULL;

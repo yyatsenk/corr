@@ -80,7 +80,8 @@ int check_end_line(char *str, char *str_orig)
 			j = i;
 			while (str[j] && str[j] != ' ' && str[j] != '\t')
 				j++;
-			printf("Syntax error at token [TOKEN][%03i:%03i] \"%s\"\n", g_num_str, (int)(ft_strstr(str_orig, str) - str_orig + 1), str);
+			printf("Syntax error at token [TOKEN][%03i:%03i] \"%s\"\n",\
+				g_num_str, (int)(ft_strstr(str_orig, str) - str_orig + 1), str);
 			exit(1);
 		}
 		i++;
@@ -88,29 +89,32 @@ int check_end_line(char *str, char *str_orig)
 	return (1);
 }
 
-char *join_cooler(t_command_code code)
+char *join_cooler(t_command_code *code)
 {
 	char *str_copy_1;
 	char *res;
 
 	res = ft_strdup("00");
 	str_copy_1 = res;
-	if (code.three)
+	if (code->three)
 	{
-		res = ft_strjoin(code.three, res);
+		res = ft_strjoin(code->three, res);
 		free(str_copy_1);
+		free(code->three);
 	}
-	if (code.two)
+	if (code->two)
 	{
 		str_copy_1 = res;
-		res = ft_strjoin(code.two, res);
+		res = ft_strjoin(code->two, res);
 		free(str_copy_1);
+		free(code->two);
 	}
-	if (code.one)
+	if (code->one)
 	{
 		str_copy_1 = res;
-		res = ft_strjoin(code.one, res);
+		res = ft_strjoin(code->one, res);
 		free(str_copy_1);
+		free(code->one);
 	}
 	return (res);
 }

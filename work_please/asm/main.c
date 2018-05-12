@@ -60,25 +60,24 @@ static void check_bynary(char *file_name)
 	ret = 1;
 	str = NULL;
 	fd = open(file_name, O_RDONLY);
-	if (ret > 0)
+	while (ret > 0)
 	{
-		while (ret > 0)
-		{
-			str = (char *)malloc(sizeof(char) * BUFF_SIZE + 1);
-			ret = read(fd, str, BUFF_SIZE);
-			if (ret > 0)
-				str[ret] = '\0';
-			i = -1;
-			while (str && str[++i])
-				if ((str[i] < 32 || str[i] > 127) && str[i] != '\t' && str[i] != '\n')
-				{
-					free(str);
-					printf ("Binary file,sorry\n");
-					exit(1);
-				}
-		}
-	close(fd);
+		str = (char *)malloc(sizeof(char) * BUFF_SIZE + 1);
+		ret = read(fd, str, BUFF_SIZE);
+		if (ret > 0)
+			str[ret] = '\0';
+		i = -1;
+		while (str && ++i < ret)
+			if ((str[i] < 32 || str[i] > 127 || (!str[i] && i != ret))\
+			&& str[i] != '\t' && str[i] != '\n')
+			{
+				free(str);
+				printf ("Binary file,sorry\n");
+				exit(1);
+			}
+		free(str);
 	}
+	close(fd);
 }
 
 static void check_n_c_num(char *file_name, t_all_data **obj_all)
@@ -105,7 +104,7 @@ static void check_n_c_num(char *file_name, t_all_data **obj_all)
 	{
 		printf("Too many names or comments\n");
 		free_all_data(*obj_all);
-    	exit(1);
+		exit(1);
 	}
 	close(fd);
 }
@@ -136,7 +135,8 @@ int main(int argv, char **argc)
     }
 	make_evil_warrior(command, argc[1], name_i_j.name, name_i_j.comment);
 	print_all_data_free(obj_all);
-	close(fd);
+	free_all_structs(command);
 	system("leaks --quiet my_asm");
+	close(fd);
 	return (0);
 }

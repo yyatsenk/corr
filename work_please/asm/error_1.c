@@ -59,6 +59,7 @@ static void dir_er(char *arg, char *str, char *command)
 	}			
 	printf("Invalid instruction at token [TOKEN][%03i:%03i] INSTRUCTION \"%s\"\n",\
 		g_num_str, (int)(ft_strstr(str,command) - str) + 1, command);
+	free(value);
 	exit(1);
 }
 
