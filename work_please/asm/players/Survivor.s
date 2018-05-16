@@ -15,6 +15,3 @@ run:	xor	r0, r0, r0
 l1:	st	r2, 1
 	live	%1
 	zjmp	%:l1
-               
- 
-	
