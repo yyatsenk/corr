@@ -34,6 +34,11 @@ static void		skip_all_shit(char **str_copy, int fd)
 	char		*str;
 
 	str = *str_copy;
+	if (!*str_copy)
+	{
+		ft_printf("Empty file\n");
+		exit(1);
+	}
 	while (*str_copy && (!ft_strncmp(*str_copy, "#", 1)\
 		|| !ft_strcmp(*str_copy, "")))
 	{
@@ -78,6 +83,7 @@ int				be_valid_dude(int fd, t_command **command, t_i_j *n_c_set)
 	char		*str;
 
 	i = 0;
+	str = NULL;
 	get_next_line(fd, &str);
 	g_num_str++;
 	skip_all_shit(&str, fd);

@@ -32,9 +32,11 @@ static int				file_reader(int fd, char **res)
 	free(buffer);
 	if (ret == 0)
 	{
+		buffer = *res;
 		if (ft_strlen(*res) == 0)
 			return (-2);
 		(*res) = ft_strjoin((*res), "\n");
+		free(buffer);
 	}
 	return (ret);
 }

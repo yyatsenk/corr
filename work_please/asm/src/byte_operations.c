@@ -50,7 +50,7 @@ long long		make_decimal(char *octet, int octet_size)
 	while (octet[i])
 	{
 		if (octet[i] == '1')
-			res += pow(2, ((i - octet_size) * (-1)));
+			res += my_pow(2, ((i - octet_size) * (-1)));
 		i++;
 	}
 	return (res);

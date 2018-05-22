@@ -19,11 +19,9 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <string.h>
 # include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
 
 int						g_num_str;
 int						g_arg_num;
@@ -168,9 +166,11 @@ t_all_data				*init_all_data(char *str);
 void					free_all_data(t_all_data *begin);
 void					print_all_data_free(t_all_data *begin);
 void					free_all_structs(t_command *command);
-int						my_pow(int num, int s);
+long long				my_pow(int base, int power);
 void					fore_bites_help(int *argument, int begin,\
 	int end, char *str_binary);
 void					init_i_j(t_i_j *n_c_set);
 void					check_if_dir(char *str, int fd);
+void					bad_file(int *ret, int *fd, char **str,\
+	char *file_name);
 #endif

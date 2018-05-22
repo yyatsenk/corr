@@ -19,8 +19,8 @@ static void		help_me(t_i_j n_c_set, char *str, t_command *c_copy)
 		if (c_copy->is_label == 1)
 			ft_printf("Syntax error at token\
 	[TOKEN][%03i:%03li] LABEL \"%s:\"\n",\
-				g_num_str, (ft_strstr(str, c_copy->name) - str) + 1,\
-				c_copy->name);
+	g_num_str, (ft_strstr(str, c_copy->name) - str) + 1,\
+	c_copy->name);
 		else
 			ft_printf("Syntax error at token\
 	[TOKEN][%03i:%03li] COMMAND \"%s\"\n",\

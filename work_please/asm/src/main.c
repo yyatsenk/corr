@@ -47,14 +47,10 @@ static void		check_bynary(char *file_name)
 	int			i;
 	int			ret;
 
-	ret = 1;
-	fd = open(file_name, O_RDONLY);
+	bad_file(&ret, &fd, &str, file_name);
 	while (ret > 0)
 	{
-		str = (char *)malloc(sizeof(char) * BUFF_SIZE + 1);
-		ret = read(fd, str, BUFF_SIZE);
-		if (ret > 0)
-			str[ret] = '\0';
+		str[ret] = '\0';
 		i = -1;
 		while (str && ++i < ret)
 			if ((str[i] < 32 || str[i] > 127 || (!str[i] && i != ret))\
@@ -65,7 +61,10 @@ static void		check_bynary(char *file_name)
 				exit(1);
 			}
 		free(str);
+		str = (char *)malloc(sizeof(char) * BUFF_SIZE + 1);
+		ret = read(fd, str, BUFF_SIZE);
 	}
+	free(str);
 	close(fd);
 }
 

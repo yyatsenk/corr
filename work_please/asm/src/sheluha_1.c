@@ -12,17 +12,30 @@
 
 #include "cor.h"
 
-int				my_pow(int num, int s)
+long long		my_pow(int base, int power)
 {
-	int			res;
+	long long	rreturn;
+	int			n;
 
-	res = num;
-	while (s != 1)
+	rreturn = 1;
+	n = 0;
+	if (power > 0)
 	{
-		res *= num;
-		s--;
+		while (n < power)
+		{
+			rreturn *= base;
+			n++;
+		}
 	}
-	return (res);
+	else
+	{
+		while (n > power)
+		{
+			rreturn /= base;
+			n--;
+		}
+	}
+	return (rreturn);
 }
 
 static int		find_size(t_command *command, char *name, int pos)

@@ -30,3 +30,16 @@ void		check_if_dir(char *str, int fd)
 		exit(1);
 	}
 }
+
+void		bad_file(int *ret, int *fd, char **str, char *file_name)
+{
+	*ret = 1;
+	*fd = open(file_name, O_RDONLY);
+	*str = (char *)malloc(sizeof(char) * BUFF_SIZE + 1);
+	if ((*ret = read(*fd, *str, BUFF_SIZE)) == -1)
+	{
+		free(*str);
+		ft_printf("I can't open this shit\n");
+		exit(1);
+	}
+}
